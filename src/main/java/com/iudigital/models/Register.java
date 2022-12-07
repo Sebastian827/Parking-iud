@@ -3,6 +3,7 @@ package com.iudigital.models;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,8 +26,8 @@ public class Register {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idregister;
 	
-	@ManyToOne
-	@JoinColumn(name="id_car")
+	@ManyToOne(cascade=CascadeType.MERGE)
+	@JoinColumn(name="car_id")
 	private Car car;
 	
 	@Column(name = "check_in")
@@ -37,8 +38,15 @@ public class Register {
 	
 	private String news;
 	private boolean state;
+	private int cell;
 	private long price;
 	
+	public int getCell() {
+		return cell;
+	}
+	public void setCell(int cell) {
+		this.cell=cell;
+	}
 	
 	public int getIdregister() {
 		return idregister;

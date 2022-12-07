@@ -18,13 +18,19 @@ import com.iudigital.services.UserServices;
 @RestController
 @RequestMapping("/register")
 public class RegisterController {
-	
+	int numCell=4;
 	@Autowired
 	RegisterServices registerServ;
 	
 	@PostMapping()
-	public void CreateRegister(@RequestBody Register reg) {
+	public String CreateRegister(@RequestBody Register reg) {
+		
+		if(registerServ.getActiveRegister().size()>numCell) {
+			return "No hay celdas disponibles";
+		}
+		setCell(reg);
 		registerServ.createRegister(reg);;
+		return String.valueOf(registerServ.getActiveRegister().size());
 	};
 	
 	@GetMapping("{id}")
@@ -44,7 +50,23 @@ public class RegisterController {
 		Register ref = registerServ.getRegister(id);
 		
 		return ref.getPrice();
+	}
+	
+	public void setCell(Register reg) {
+		int n =registerServ.getActiveRegister().size();	
+		for(int i=0;i<n;i++) {
+			if(registerServ.getActiveRegister().get(i).getCell()!=(i+1)) {			
+				reg.setCell(i+1);
+				
+			}
+		}
+		
+	}
+	@GetMapping("/active")
+	public ArrayList<Register> getActiveRegister() {
+		return registerServ.getActiveRegister();
 		
 	}
 
+	
 }

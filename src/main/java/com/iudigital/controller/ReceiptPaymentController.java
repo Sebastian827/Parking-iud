@@ -1,6 +1,9 @@
 package com.iudigital.controller;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -8,37 +11,26 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.iudigital.models.Car;
-import com.iudigital.services.CarServices;
+import com.iudigital.models.ReceiptPayment;
+import com.iudigital.services.ReceiptPaymentServices;
 
 @RestController
-@RequestMapping("/car")
-public class CarController {
-	@Autowired
-	CarServices carServices;
+@RequestMapping("/payment")
+public class ReceiptPaymentController {
 	
-	@PostMapping()
-	public void CreateCar(@RequestBody Car car) {
-		carServices.CreateCar(car);
-	};
+	@Autowired
+	ReceiptPaymentServices paymentService;
+	
 	
 	@GetMapping("{id}")
-	public Car getCar(@PathVariable(name="id") int  id) {
-		return carServices.GetCar(id);
-		
-		
+	public ArrayList<ReceiptPayment> getCar(@PathVariable(name="id") String  id) {
+		return paymentService.GetPayment(id);	
 	};
 	
-	@PostMapping("/delete/{id}")
-	public void deleteCar(@PathVariable(name="id") int id) {
-		carServices.deleteCar(id);
+	
+	@GetMapping()
+	public ArrayList<ReceiptPayment> getAll(){
+		return paymentService.getAllPayment();
 	}
-	
-	
-	
-	
-	
-	
-	
 
 }

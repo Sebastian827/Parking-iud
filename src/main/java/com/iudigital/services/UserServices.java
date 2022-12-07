@@ -23,6 +23,7 @@ public class UserServices {
 	};
 	
 	public User GetUser(String id) {
+		
 		return userRepository.findById(id).get();
 	};
 	
@@ -34,5 +35,7 @@ public class UserServices {
 		};
 		
 	}
+	
+	
 
 }

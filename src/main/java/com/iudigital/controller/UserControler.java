@@ -30,9 +30,10 @@ public class UserControler {
 		return userServices.GetUser(id);
 	};
 	
-	@GetMapping("/delete/{id}")
+	@PostMapping("/delete/{id}")
 	public void deleteUser(@PathVariable(name="id") String id) {
 		userServices.deleteUser(id);
 	}
+	
 
 }
